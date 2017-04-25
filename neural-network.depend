@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1493138949 source:c:\users\dr\desktop\opencvexamples\neural-network\src\matt.cpp
+	"Matt.h"
+
+1493138638 c:\users\dr\desktop\opencvexamples\neural-network\include\matt.h
+	<opencv2/core/core.hpp>
+	<opencv2/highgui/highgui.hpp>
+	<opencv2/opencv.hpp>
+	<algorithm>
+	<vector>
+	<math.h>
+	"Neural.h"
+
+1493138655 c:\users\dr\desktop\opencvexamples\neural-network\include\neural.h
+	<iostream>
+	<stdio.h>
+	<vector>
+	<math.h>
+	<string.h>
+	<time.h>
+	<stdlib.h>
+
+1493138656 source:c:\users\dr\desktop\opencvexamples\neural-network\src\neural.cpp
+	"Neural.h"
+
