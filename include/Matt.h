@@ -13,46 +13,48 @@
 using namespace std;
 using namespace cv;
 
-class Matt{
-    public:
-        // Methods
-        Matt(int rows, int cols, int widthDescriptor = 90, int heightDescriptor = 45);
-        Matt(Mat &img, int widthDescriptor = 90, int heightDescriptor = 45);
-        virtual ~Matt();
+class Matt
+{
+public:
+    // Methods
+    Matt(int rows, int cols, int widthDescriptor = 90, int heightDescriptor = 45);
+    Matt(Mat &img, int widthDescriptor = 90, int heightDescriptor = 45);
+    virtual ~Matt();
 
-        void intencityImage(Mat img);
-        Mat getImage();
-        vector<double> calculateLBPU();
-        Mat histogram();
-        void generateLBPCode();
+    void intencityImage(Mat img);
+    Mat getImage();
+    vector<double> calculateLBPU();
+    Mat histogram();
+    void generateLBPCode();
 
-        static Matt* createDetector(Mat img, int stepX = 1, int stepY = 1, int widthDescriptor = 90, int heightDescriptor = 45);
-        vector< vector<double> > findTemplates(Neural *neural);
-        vector< pair<Point,Point > > markTemplates(Neural *neural);
-        void markTemplates(Neural *neural,Mat &img);
+    static Matt *createDetector(Mat img, int stepX = 1, int stepY = 1, int widthDescriptor = 90, int heightDescriptor = 45);
+    vector<vector<double>> findTemplates(Neural *neural);
+    vector<pair<Point, Point>> markTemplates(Neural *neural);
+    void markTemplates(Neural *neural, Mat &img);
 
-        // Attributes
-        int rows;
-        int cols;
-    protected:
-    private:
-        Matt(int stepX = 1, int stepY = 1, int widthDescriptor = 90, int heightDescriptor = 45, bool isDetector = true);
-        void generateResolutionImagesLBP(Mat &img);
-        int toPos(int row, int col);
-        pair<int,int> toPixelPos(int pos);
+    // Attributes
+    int rows;
+    int cols;
 
-        // Attributes
-        vector< vector<int> > matt; // LBP images
-        vector< pair<int,int> > mattSizes; // size of every level image
-        vector<int> mat; // main image
-        int valueU[256];
-        int dir[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
-        int uniformU;
-        int stepX;
-        int stepY;
-        int widthDescriptor;
-        int heightDescriptor;
-        bool isDetector;
+protected:
+private:
+    Matt(int stepX = 1, int stepY = 1, int widthDescriptor = 90, int heightDescriptor = 45, bool isDetector = true);
+    void generateResolutionImagesLBP(Mat &img);
+    int toPos(int row, int col);
+    pair<int, int> toPixelPos(int pos);
+
+    // Attributes
+    vector<vector<int>> matt;         // LBP images
+    vector<pair<int, int>> mattSizes; // size of every level image
+    vector<int> mat;                  // main image
+    int valueU[256];
+    int dir[8][2] = {{0, -1}, {1, -1}, {1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}};
+    int uniformU;
+    int stepX;
+    int stepY;
+    int widthDescriptor;
+    int heightDescriptor;
+    bool isDetector;
 };
 
 #endif // MATT_H
