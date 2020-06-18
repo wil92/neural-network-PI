@@ -1,8 +1,7 @@
 #include "../include/Matt.h"
 
 Matt::Matt(int stepX, int stepY, int widthDescriptor, int heightDescriptor, bool isDetector){
-    //ctor
-    GenerateLbpCode();
+    generateLBPCode();
     dir={{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
 
     this->stepX = stepX;
@@ -15,7 +14,6 @@ Matt::Matt(int stepX, int stepY, int widthDescriptor, int heightDescriptor, bool
 }
 
 Matt::Matt(int rows, int cols, int widthDescriptor, int heightDescriptor){
-    //ctor
     this->cols = cols;
     this->rows = rows;
 
@@ -27,12 +25,10 @@ Matt::Matt(int rows, int cols, int widthDescriptor, int heightDescriptor){
     this->widthDescriptor = widthDescriptor;
     this->heightDescriptor = heightDescriptor;
 
-    GenerateLbpCode();
-    dir={{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
+    generateLBPCode();
 }
 
 Matt::Matt(Mat &img, int widthDescriptor, int heightDescriptor){
-    //ctor
     cols = img.cols;
     rows = img.rows;
 
@@ -44,8 +40,7 @@ Matt::Matt(Mat &img, int widthDescriptor, int heightDescriptor){
     this->widthDescriptor = widthDescriptor;
     this->heightDescriptor = heightDescriptor;
 
-    GenerateLbpCode();
-    dir={{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
+    generateLBPCode();
 
     isDetector = false;
 
@@ -57,7 +52,7 @@ Matt::~Matt(){
     //dtor
 }
 
-void Matt::GenerateLbpCode(){
+void Matt::generateLBPCode(){
     //Precalculo de los patrones uniformes
     int cv=0,ct=0;
     for(int i=0;i<=255;i++){
@@ -82,14 +77,20 @@ void Matt::GenerateLbpCode(){
     uniformU = cv + 1;
 }
 
-Matt* Matt::CreateDetector(Mat img, int stepX, int stepY, int widthDescriptor, int heightDescriptor){
+/**
+ * Generate an instance with the resulting lbp of the image
+ */
+Matt* Matt::createDetector(Mat img, int stepX, int stepY, int widthDescriptor, int heightDescriptor){
     Matt *ret = new Matt(stepX, stepY, widthDescriptor, heightDescriptor, true);
     resize(img, img, Size(800, 800 * img.rows / img.cols));
-    ret->GenerateResolutionImagesLBP(img);
+    ret->generateResolutionImagesLBP(img);
     return ret;
 }
 
-void Matt::GenerateResolutionImagesLBP(Mat &img){
+/**
+ * Given an image, return the resulting LBP 
+ */
+void Matt::generateResolutionImagesLBP(Mat &img){
     rows = img.rows;
     cols = img.cols;
     int h = rows, w = cols, cont = 0;
@@ -131,7 +132,7 @@ void Matt::GenerateResolutionImagesLBP(Mat &img){
     cols = tw;
 }
 
-vector< vector<double> > Matt::FindTemplates(Neural *neural){
+vector< vector<double> > Matt::findTemplates(Neural *neural){
 
     vector< vector<double> > ret;
 
@@ -169,7 +170,7 @@ vector< vector<double> > Matt::FindTemplates(Neural *neural){
     return ret;
 }
 
-vector< pair<Point,Point > > Matt::MarkTemplates(Neural *neural){
+vector< pair<Point,Point > > Matt::markTemplates(Neural *neural){
 
     vector< pair<Point,Point > > ret;
 
@@ -208,8 +209,8 @@ vector< pair<Point,Point > > Matt::MarkTemplates(Neural *neural){
     return ret;
 }
 
-void Matt::MarkTemplates(Neural *neural, Mat &img){
-    vector< pair<Point,Point > > lis = MarkTemplates(neural);
+void Matt::markTemplates(Neural *neural, Mat &img){
+    vector< pair<Point,Point > > lis = markTemplates(neural);
     for(int i=0;i<lis.size();i++){
         rectangle(img,
                   Point( (lis[i].first.x)*img.cols/cols, img.rows - (lis[i].first.y)*img.rows/rows),

@@ -19,15 +19,17 @@ class Matt{
         Matt(int rows, int cols, int widthDescriptor = 90, int heightDescriptor = 45);
         Matt(Mat &img, int widthDescriptor = 90, int heightDescriptor = 45);
         virtual ~Matt();
+
         void intencityImage(Mat img);
         Mat getImage();
         vector<double> calculateLBPU();
         Mat histogram();
-        void GenerateLbpCode();
-        static Matt* CreateDetector(Mat img, int stepX = 1, int stepY = 1, int widthDescriptor = 90, int heightDescriptor = 45);
-        vector< vector<double> > FindTemplates(Neural *neural);
-        vector< pair<Point,Point > > MarkTemplates(Neural *neural);
-        void MarkTemplates(Neural *neural,Mat &img);
+        void generateLBPCode();
+
+        static Matt* createDetector(Mat img, int stepX = 1, int stepY = 1, int widthDescriptor = 90, int heightDescriptor = 45);
+        vector< vector<double> > findTemplates(Neural *neural);
+        vector< pair<Point,Point > > markTemplates(Neural *neural);
+        void markTemplates(Neural *neural,Mat &img);
 
         // Attributes
         int rows;
@@ -35,7 +37,7 @@ class Matt{
     protected:
     private:
         Matt(int stepX = 1, int stepY = 1, int widthDescriptor = 90, int heightDescriptor = 45, bool isDetector = true);
-        void GenerateResolutionImagesLBP(Mat &img);
+        void generateResolutionImagesLBP(Mat &img);
         int toPos(int row, int col);
         pair<int,int> toPixelPos(int pos);
 
@@ -44,7 +46,7 @@ class Matt{
         vector< pair<int,int> > mattSizes; // size of every level image
         vector<int> mat; // main image
         int valueU[256];
-        int dir[8][2];
+        int dir[8][2] = {{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
         int uniformU;
         int stepX;
         int stepY;
