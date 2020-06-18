@@ -1,4 +1,4 @@
-#include "Neural.h"
+#include "../include/Neural.h"
 
 Neural::Neural(){
     //ctor

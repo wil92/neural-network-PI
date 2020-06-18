@@ -1,5 +1,4 @@
-#include "Matt.h"
-
+#include "../include/Matt.h"
 
 Matt::Matt(int stepX, int stepY, int widthDescriptor, int heightDescriptor, bool isDetector){
     //ctor
@@ -271,7 +270,7 @@ Mat Matt::getImage(){
 
 vector<double> Matt::calculateLBPU(){
 
-    //Tamaño del descriptor
+    //Tamaï¿½o del descriptor
     vector<double> ret = vector<double>(uniformU*4);
 
     for(int i=0;i<uniformU;i++)ret[i]=0;
