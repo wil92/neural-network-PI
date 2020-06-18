@@ -188,7 +188,7 @@ vector<vector<double>> Matt::findTemplates(Neural *neural)
                     }
                 }
                 //                cout<<"e\n";
-                if (neural->Clasificate(vecTmp))
+                if (neural->clasificate(vecTmp))
                 {
                     ret.push_back(vecTmp);
                 }
@@ -237,7 +237,7 @@ vector<pair<Point, Point>> Matt::markTemplates(Neural *neural)
                         //                        vecTmp[ valueU[ tt ] ]++;
                     }
                 }
-                if (neural->Clasificate(vecTmp))
+                if (neural->clasificate(vecTmp))
                 {
                     double x = k;
                     double y = j;
