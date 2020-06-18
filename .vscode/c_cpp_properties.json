@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/local/include/opencv4"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "clang-x64",
+            "compilerArgs": [
+                "-lopencv_core",
+                "-lopencv_highgui",
+                "-lopencv_imgproc"
+            ]
+        }
+    ],
+    "version": 4
+}
