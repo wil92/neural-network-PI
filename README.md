@@ -2,47 +2,24 @@
 
 This project is a study of neural networks. You can find here, how I got introduced into this beautiful world of AI, and the amazing maths behind it. All the components that I created here, are fully reusable and functionals.
 
-## Setting up the project
-
-### opencv configuration
-
-**Install required dependencies**
+## Project dependencies
 
 ```
-sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
-sudo apt-get install libopencv-core-dev libopencv-highgui-dev libopencv-dev
+sudo apt-get install g++ gdb libopencv-dev
 ```
 
-**Clone the project from github**
+## Build project
 
 ```
-git clone https://github.com/opencv/opencv.git
+g++ -g main.cpp -o main -lopencv_core -lopencv_highgui -lopencv_imgproc
 ```
 
-> *NOTE: opencv project is around 250MG of size.*
-
-**Build opencv project**
-
-Open a terminal in the directory of the cloned project and run the following commands to prepare the project dependencies and required stuff:
+## Start project
 
 ```
-cd ~/opencv
-mkdir release
-cd release
-cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
+./main
 ```
-
-In a second step you need to build and install the opencv project:
-
-```
-make
-sudo make install
-```
-
-### Project configurations
-
-## Starting the project
 
 ## Contributions
 
-All contributions are welcome, so, fill free to play with me and the AI on this project.
+All contributions are welcome, so, feel free to play with the project and use it what however you want.
