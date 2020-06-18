@@ -48,24 +48,17 @@ void Neural::clearDescriptors(){
     descriptors.clear();
 }
 
-double Neural::ClasificatorFunction(int descriptorNumber){
-    double clasificator = 0;
-    for(int i=0;i<model.size();i++){
-        clasificator += model[i] * descriptors[descriptorNumber][i];
-    }
-    return clasificator;
+/**
+ * Start the training the neural network with 1 million maximum of iteration by default
+ */
+bool Neural::startTraining(){
+    return startTraining(1000000);
 }
 
-double Neural::LogisticFunction(int descriptorNumber){
-    double logistic = 1. / (1. + exp(-ClasificatorFunction(descriptorNumber)));
-    return logistic;
-}
-
-double Neural::Humbral(){
-    return log(T / (1 - T));
-}
-
-bool Neural::StartTraining(int maxIteration){
+/**
+ * Start the training the neural network given the maximum number of iterations
+ */
+bool Neural::startTraining(int maxIteration){
     double logisticArray[descriptors.size()];
     double clasificationArray[descriptors.size()];
 
@@ -85,17 +78,17 @@ bool Neural::StartTraining(int maxIteration){
 
         bool needTraining = 0;
         for(int i=0;i<descriptors.size();i++){
-            logisticArray[i] = LogisticFunction(i);
-            clasificationArray[i] = ClasificatorFunction(i);
+            logisticArray[i] = logisticFunction(i);
+            clasificationArray[i] = clasificatorFunction(i);
 
-            double humbral = Humbral();
-            if( (clasificationArray[i] > humbral && descriptorAnswer[i] == 0) ||
-                (clasificationArray[i] < humbral && descriptorAnswer[i] == 1) ){
+            double humbralValue = humbral();
+            if( (clasificationArray[i] > humbralValue && descriptorAnswer[i] == 0) ||
+                (clasificationArray[i] < humbralValue && descriptorAnswer[i] == 1) ){
                 needTraining = 1;
             }
         }
         if(!needTraining){
-            cout<<"\nconverge on iteration "<< i <<endl;
+            cout<<"\nConverge on iteration "<< i <<endl;
             return i;
         }
 
@@ -117,16 +110,32 @@ bool Neural::StartTraining(int maxIteration){
     return 1;
 }
 
-bool Neural::StartTraining(){
-    return StartTraining(1000000);
+double Neural::logisticFunction(int descriptorNumber){
+    double logistic = 1. / (1. + exp(-clasificatorFunction(descriptorNumber)));
+    return logistic;
 }
 
-bool Neural::Clasificate(vector<double> descriptor){
+double Neural::clasificatorFunction(int descriptorNumber){
+    double clasificator = 0;
+    for(int i=0;i<model.size();i++){
+        clasificator += model[i] * descriptors[descriptorNumber][i];
+    }
+    return clasificator;
+}
+
+/**
+ * Given the descriptor, return true if it calsify or false otherwise
+ */
+bool Neural::clasificate(vector<double> descriptor){
     double clasificator = model[0];
 
     for(int i=0;i<model.size()-1;i++){
         clasificator += model[i + 1] * descriptor[i];
     }
 
-    return clasificator > Humbral();
+    return clasificator > humbral();
+}
+
+double Neural::humbral(){
+    return log(T / (1 - T));
 }

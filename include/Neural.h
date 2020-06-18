@@ -20,17 +20,17 @@ class Neural{
         Neural* setModel(vector<double> w);
         vector<double> getModel();
 
-        bool StartTraining(int maxIteration);
-        bool StartTraining();
-        double Humbral();
-        void clearDescriptors();
+        bool startTraining(int maxIteration);
+        bool startTraining();
+        bool clasificate(vector<double> x);
 
-        bool Clasificate(vector<double> x);
+        void clearDescriptors();
+        double humbral();
 
     protected:
     private:
-        double ClasificatorFunction(int descriptorNumber);
-        double LogisticFunction(int descriptorNumber);
+        double clasificatorFunction(int descriptorNumber);
+        double logisticFunction(int descriptorNumber);
 
         vector< vector<double> > descriptors;
         vector<double> descriptorAnswer;
